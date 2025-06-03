@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Planet Satelitní Snímky</title>
+  <style>
+    body { background-color: #111; color: #eee; font-family: Arial; text-align: center; padding: 40px; }
+    button { padding: 10px 20px; font-size: 18px; cursor: pointer; background: #00ff99; border: none; border-radius: 5px; }
+    img { max-width: 80%; margin-top: 20px; border-radius: 10px; box-shadow: 0 0 20px #00ff99; }
+  </style>
+</head>
+<body>
+  <h1>🌍 Planet Satelitní Snímky</h1>
+  <button onclick="getImage()">Zobraz náhodný snímek</button>
+  <div id="info"></div>
+  <img id="satImage" src="" style="display:none;"/>
 
+<script>
+function getImage() {
+  fetch('/random-image')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('info').innerHTML = `<p><strong>Snímek z:</strong> ${data.date}<br><strong>Lokace:</strong> ${data.location}</p>`;
+      document.getElementById('satImage').src = data.image;
+      document.getElementById('satImage').style.display = 'block';
+    })
+    .catch(err => alert("Nepodařilo se načíst snímek."));
+}
+</script>
+</body>
+</html>
